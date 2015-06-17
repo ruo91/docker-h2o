@@ -42,8 +42,10 @@ RUN git clone https://github.com/tatsuhiro-t/wslay.git \
 ENV OPENSSL_INCLUDE_DIR /usr/include
 ENV LD_LIBRARY_PATH /lib/x86_64-linux-gnu
 ENV OPENSSL_LIBRARIES $LIBRARY_DIR/libssl.so;$LIBRARY_DIR/libcrypto.so
-RUN ln -s $LIBRARY_DIR/libssl.so.1.0.0 $LIBRARY_DIR/libssl.so \
- && ln -s $LIBRARY_DIR/libcrypto.so.1.0.0 $LIBRARY_DIR/libcrypto.so
+
+RUN cd $LD_LIBRARY_PATH \
+ && ln -s libssl.so* libssl.so \
+ && ln -s libcrypto.so* libcrypto.so
 
 # H2O
 ENV H2O_PREFIX /usr/local/h2o
