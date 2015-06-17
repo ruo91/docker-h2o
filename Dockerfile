@@ -67,6 +67,8 @@ RUN git clone https://github.com/h2o/h2o.git \
 # Add html and configuration file
 ENV H2O_DIR /etc/h2o
 ADD conf/h2o $H2O_DIR
+RUN mkdir $H2O_DIR/logs \
+ && mkdir $H2O_DIR/run
 
 # Supervisor
 RUN mkdir -p /var/log/supervisor
