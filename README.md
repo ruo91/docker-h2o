@@ -12,7 +12,7 @@
 [root@ruo91 ~]# docker run -d --name="h2o" -h "h2o" -p 8080:80 h2o:source
 ```
 
-##### - Run
+##### - Test
 ```
 [root@ruo91 ~]# curl -l http://localhost:8080
 ```
