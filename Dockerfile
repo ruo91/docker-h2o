@@ -5,10 +5,10 @@
 # GitHub: https://github.com/h2o/h2o
 #
 # - Build
-# docker build --rm -t h2o:source .
+# docker build --rm -t h2o:latest .
 #
 # - Run
-# docker run -d --name="h2o" -h "h2o" h2o:source
+# docker run -d --name="h2o" -h "h2o" h2o:latest
 #
 # Use the base images
 FROM ubuntu:14.04
@@ -77,7 +77,7 @@ RUN mkdir -p /var/log/supervisor
 ADD conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Port
-EXPOSE 80
+EXPOSE 80 443
 
 # Daemon
 CMD ["/usr/bin/supervisord"]
