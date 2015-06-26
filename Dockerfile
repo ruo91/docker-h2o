@@ -50,6 +50,7 @@ RUN cd $LD_LIBRARY_PATH \
 # H2O
 ENV H2O_PREFIX /usr/local/h2o
 ENV CMAKE_FILE cmake/FindOpenSSL.cmake
+ENV PATH $PATH:$H2O_PREFIX/bin:$H2O_PREFIX/share/h2o
 RUN git clone https://github.com/h2o/h2o.git \
  && cd h2o \
  && echo 'FIND_PATH(OPENSSL_INCLUDE_DIR NAMES openssl/ssl.h)' > $CMAKE_FILE \
@@ -69,7 +70,9 @@ RUN git clone https://github.com/h2o/h2o.git \
 # Add html and configuration file
 ENV H2O_DIR /etc/h2o
 ADD conf/h2o $H2O_DIR
-RUN mkdir $H2O_DIR/logs \
+ADD conf/h2o-reload.sh /usr/bin/h2o-reload
+RUN chmod a+x /usr/bin/h2o-reload \
+ && mkdir $H2O_DIR/logs \
  && mkdir $H2O_DIR/run
 
 # Supervisor
