@@ -15,7 +15,24 @@ or
 
 ##### - Run
 ```
-[root@ruo91 ~]# docker run -d --name="h2o" -h "h2o" h2o:latest
+[root@ruo91 ~]# docker run -d --name="h2o" -h "h2o" \
+-v /opt/docker-h2o/conf/h2o/h2o.conf:/etc/h2o/h2o.conf h2o:latest
+```
+
+##### - Reload of H2O
+```
+[root@ruo91 ~]# docker exec h2o ps -ef | grep perl
+root        61     1  0 10:20 ?        00:00:00 perl -x /usr/local/h2o/share/h2o/start_server --pid-file=/etc/h2o/run/h2o.pid --log-file=/etc/h2o/logs/h2o-error.log --daemonize --port=0.0.0.0:80 --port=[::]:80 --port=0.0.0.0:443 --port=[::]:443 -- /usr/local/h2o/bin/h2o -c /etc/h2o/h2o.conf
+root        66    62  0 10:20 ?        00:00:00 perl -x /usr/local/h2o/share/h2o/annotate-backtrace-symbols
+```
+```
+[root@ruo91 ~]# docker exec h2o h2o-reload reload
+start_server (pid:88) starting now...
+```
+```
+[root@ruo91 ~]# docker exec h2o ps -ef | grep perl
+root        90     1  0 10:21 ?        00:00:00 perl -x /usr/local/h2o/share/h2o/start_server --pid-file=/etc/h2o/run/h2o.pid --log-file=/etc/h2o/logs/h2o-error.log --daemonize --port=0.0.0.0:80 --port=[::]:80 --port=0.0.0.0:443 --port=[::]:443 -- /usr/local/h2o/bin/h2o -c /etc/h2o/h2o.conf
+root        95    91  0 10:21 ?        00:00:00 perl -x /usr/local/h2o/share/h2o/annotate-backtrace-symbols
 ```
 
 ##### - Test
